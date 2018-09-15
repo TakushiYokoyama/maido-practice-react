@@ -10,6 +10,7 @@ export const createPropagationProps = <
 ) => {
   return pickExclude(
     props,
+    'theme',
     'classes',
     'className',
     'injectClasses',

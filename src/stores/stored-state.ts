@@ -1,5 +1,7 @@
-import { HomeIndexState } from './home/home-index-state';
+import { BarFormState } from './bar/bar-form-state';
+import { BarListState } from './bar/bar-list-state';
 
 export interface StoredState {
-  homeIndexState: HomeIndexState;
+  barFormState: BarFormState;
+  barListState: BarListState;
 }
