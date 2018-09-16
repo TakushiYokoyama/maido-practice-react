@@ -46,3 +46,6 @@ export const mergeClasses = <TStyles>(
   });
   return copy;
 };
+
+export const appendClassNeme = (...classNames: Array<string | undefined>) =>
+  classNames.filter(x => x).join(' ');

@@ -23,9 +23,14 @@ import { RadioBox } from '../../components/forms-controls/radio-box';
 import { barListActionCreators } from '../../stores/bar/bar-list-reducer';
 import { barFormActionCreators } from '../../stores/bar/bar-form-reducer';
 
-interface Styles extends StylesBase {}
+interface Styles extends StylesBase {
+  header: any;
+}
 const styles = (): Styles => ({
   root: {},
+  header: {
+    margin: 0,
+  },
 });
 interface Events {
   add: (friend: Friend, friends: Friend[]) => Promise<any>;
@@ -42,6 +47,7 @@ interface Props {
   isValid: boolean;
   title: string;
   buttonLabel: string;
+  themeType: 'mono' | 'blue' | 'red';
 }
 const mapDispatchToProps: DispatchMapper<Events> = dispatch => {
   return {
@@ -71,6 +77,8 @@ const mapStateToProps: StateMapper<Props> = ({
   const isValid = Boolean(friend.name && friend.sex && friend.job);
   const title = isAddMode ? 'あたらしいなかま' : 'ステータス';
   const buttonLabel = isAddMode ? 'なかまにする' : 'くびにする';
+  const themeType =
+    friend.sex === 'male' ? 'blue' : friend.sex === 'female' ? 'red' : 'mono';
   return {
     friend,
     friends,
@@ -78,6 +86,7 @@ const mapStateToProps: StateMapper<Props> = ({
     title,
     isValid,
     buttonLabel,
+    themeType,
   };
 };
 const jobs = [
@@ -101,11 +110,14 @@ const decoratedComponent = decorate(styles)<Props & Events>(props => {
     changeFriend,
     isValid,
     buttonLabel,
+    themeType,
+    classes,
   } = props;
+  const { header } = classes;
   return (
-    <Form>
+    <Form themeType={themeType}>
       <Row>
-        <h3>{title}</h3>
+        <h3 className={header}>{title}</h3>
       </Row>
       <Row>
         <Cell size={2}>
@@ -113,6 +125,7 @@ const decoratedComponent = decorate(styles)<Props & Events>(props => {
         </Cell>
         <Cell>
           <TextBox
+            themeType={themeType}
             maxLength={4}
             readOnly={!isAddMode}
             value={friend.name}
@@ -125,12 +138,17 @@ const decoratedComponent = decorate(styles)<Props & Events>(props => {
         <Cell>
           {isAddMode ? (
             <Select
+              themeType={themeType}
               value={friend.job}
               onChange={e => changeFriend('job', e.target.value)}
               selectItems={jobs}
             />
           ) : (
-            <TextBox readOnly={!isAddMode} value={friend.job} />
+            <TextBox
+              readOnly={!isAddMode}
+              value={friend.job}
+              themeType={themeType}
+            />
           )}
         </Cell>
       </Row>
@@ -162,7 +180,11 @@ const decoratedComponent = decorate(styles)<Props & Events>(props => {
             <Label htmlFor="personality">せいかく</Label>
           </Cell>,
           <Cell key={1}>
-            <TextBox value={friend.personality} readOnly={true} />
+            <TextBox
+              value={friend.personality}
+              readOnly={true}
+              themeType={themeType}
+            />
           </Cell>,
         ]}
       </Row>
@@ -179,13 +201,13 @@ const decoratedComponent = decorate(styles)<Props & Events>(props => {
               <TableCell isHeader={true}>さいだいMP</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>{friend.atack}</TableCell>
-              <TableCell>{friend.agility}</TableCell>
-              <TableCell>{friend.physical}</TableCell>
-              <TableCell>{friend.intelligence}</TableCell>
-              <TableCell>{friend.luck}</TableCell>
-              <TableCell>{friend.maxHp}</TableCell>
-              <TableCell>{friend.maxMp}</TableCell>
+              <TableCell themeType={themeType}>{friend.atack}</TableCell>
+              <TableCell themeType={themeType}>{friend.agility}</TableCell>
+              <TableCell themeType={themeType}>{friend.physical}</TableCell>
+              <TableCell themeType={themeType}>{friend.intelligence}</TableCell>
+              <TableCell themeType={themeType}>{friend.luck}</TableCell>
+              <TableCell themeType={themeType}>{friend.maxHp}</TableCell>
+              <TableCell themeType={themeType}>{friend.maxMp}</TableCell>
             </TableRow>
           </Table>
         </Row>
@@ -194,6 +216,7 @@ const decoratedComponent = decorate(styles)<Props & Events>(props => {
         <Cell size={10} />
         <Cell size={2}>
           <Button
+            themeType={themeType}
             disabled={!isValid}
             onClick={() =>
               isAddMode ? add(friend, friends) : remove(friend.id)

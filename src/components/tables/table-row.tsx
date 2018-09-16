@@ -1,35 +1,35 @@
 import { StylesBase, InjectableStyledProps } from '../../common/styles/types';
-import { decorate, getInjectClasses } from '../../common/styles/styles-helper';
+import {
+  decorate,
+  getInjectClasses,
+  appendClassNeme,
+} from '../../common/styles/styles-helper';
 import { DivProps } from '../types';
 import { createPropagationProps } from '../../common/component-helper';
 import * as React from 'react';
 
-interface Styles extends StylesBase {}
+interface Styles extends StylesBase {
+  selectableRow: any;
+  selectedRow: any;
+}
 const styles: Styles = {
-  root: (props: TableRowProps) => {
-    const array: Array<{}> = [
-      {
-        width: '100%',
-        borderCollapse: 'collapse',
-        display: 'table-row',
-        '&:nth-child(odd)': {
-          backgroundColor: '#f6f6f6',
-        },
-      },
-    ];
-    if (props.selectable) {
-      array.push({
-        '&:hover': {
-          backgroundColor: '#f0f0f0',
-        },
-      });
-    }
-    if (props.selected) {
-      array.push({
-        backgroundColor: '#ddd',
-      });
-    }
-    return Object.assign({}, ...array);
+  root: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    display: 'table-row',
+    '&:nth-child(odd)': {
+      backgroundColor: '#f6f6f6',
+    },
+  },
+  selectableRow: {
+    '&:hover': {
+      backgroundColor: '#f0f0f0',
+    },
+  },
+  selectedRow: {
+    '&$root$selectableRow': {
+      backgroundColor: '#ddd',
+    },
   },
 };
 interface TableRowProps extends InjectableStyledProps<Styles> {
@@ -37,8 +37,14 @@ interface TableRowProps extends InjectableStyledProps<Styles> {
   selected?: boolean;
 }
 export const TableRow = decorate(styles)<TableRowProps & DivProps>(props => {
-  const { root } = getInjectClasses(props);
+  const { selectable, selected } = props;
+  const { root, selectableRow, selectedRow } = getInjectClasses(props);
   const pProps = createPropagationProps(props, 'selectable', 'selected');
-  return <div className={root} {...pProps} />;
+  const className = appendClassNeme(
+    root,
+    selectable ? selectableRow : '',
+    selected ? selectedRow : '',
+  );
+  return <div className={className} {...pProps} />;
 });
 TableRow.defaultProps = { selectable: false, selected: false };
