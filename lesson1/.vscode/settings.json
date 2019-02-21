@@ -18,5 +18,12 @@
     "**/vscode-extension/**",
     "**/.git/**",
     ".vscode"
+  ],
+  "cSpell.words": [
+    "circleci",
+    "inotify",
+    "mkdir",
+    "sysctl",
+    "unmount"
   ]
 }
