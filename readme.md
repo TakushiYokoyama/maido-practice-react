@@ -9,7 +9,7 @@
 - react で Component を作成できる
   - props,state を知る
   - SFC,class Component,React Hooks で Component を作成できる
-- react-router で client sid routing できる
+- react-router で client side routing できる
 - css in js で style を適用できる
 - redux で store 管理できる
 
