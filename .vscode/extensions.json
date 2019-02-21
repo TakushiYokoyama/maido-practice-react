@@ -1,10 +1,4 @@
 {
-  "recommendations": [
-    "eg2.tslint",
-    "esbenp.prettier-vscode",
-    "msjsdiag.debugger-for-chrome",
-    "rebornix.project-snippets",
-    "donjayamanne.githistory",
-    "eamodio.gitlens"
+  "recommendations": ["esbenp.prettier-vscode","streetsidesoftware.code-spell-checker"
   ]
 }

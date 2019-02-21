@@ -10,14 +10,7 @@
   "prettier.eslintIntegration": true,
   "editor.tabSize": 2,
   "prettier.trailingComma": "all",
-  "files.autoSave": "onFocusChange",
-  "editor.formatOnSave": true,
-  "cSpell.ignoreRegExpList": ["/.*ー/"],
-  "cSpell.ignorePaths": [
-    "**/package-lock.json",
-    "**/node_modules/**",
-    "**/vscode-extension/**",
-    "**/.git/**",
-    ".vscode"
-  ]
+  "tslint.autoFixOnSave": true,
+  "tslint.alwaysShowRuleFailuresAsWarnings": true,
+  "tslint.alwaysShowStatus": true
 }
