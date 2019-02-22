@@ -18,5 +18,13 @@
     "**/vscode-extension/**",
     "**/.git/**",
     ".vscode"
+  ],
+  "cSpell.words": [
+    "Lifecycle",
+    "browserslist",
+    "circleci",
+    "inotify",
+    "sysctl",
+    "unmount"
   ]
 }
