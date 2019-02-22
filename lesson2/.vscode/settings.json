@@ -26,6 +26,8 @@
   "cSpell.words": [
     "Lifecycle",
     "browserslist",
-    "csstype"
+    "csstype",
+    "middlewares",
+    "urljoin"
   ]
 }

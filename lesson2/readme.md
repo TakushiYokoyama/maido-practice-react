@@ -160,6 +160,10 @@ export class Counter2 extends React.Component<CounterProps, CounterState> {
 
 **Challenge!!**
 
+#### Counter の初期値を app.tsx から設定する
+
+**Challenge!!**
+
 ### if や for を試す
 
 tsx 内では{}内部に typescript 書け、その戻り値がそのまま表示される。  
@@ -201,13 +205,21 @@ const Component: React.SFC = props => {
 };
 ```
 
-#### Counter で 0 の場合表示しない
+#### Counter で count が偶数 の場合赤表示しない
 
 **Challenge!!**
 
-#### Counter で押した数だけ ★ を表示する
+#### Counter でボタンを押した数だけ ★ を表示する
 
 **Challenge!!**
+
+### 非同期で初期化する
+
+- Api サーバの mock を起動する
+
+```sh
+npm run mock
+```
 
 ### Form を作る
 
