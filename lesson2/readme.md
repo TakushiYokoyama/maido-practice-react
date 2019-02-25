@@ -1,5 +1,11 @@
 # Lesson2 Component
 
+## はじめに
+
+```sh
+npm init
+```
+
 ## 目標
 
 - react で Component を作成できる
@@ -78,7 +84,7 @@ class ColoredParagraph2 extends React.Component<ColoredParagraphProps> {
     // super にセットすると this.propsに props が設定される
     super(props);
   }
-  render() {
+  public render() {
     const { color, children } = this.props;
     return <p style={{ color }}>{children}</p>;
   }
@@ -89,7 +95,7 @@ class ColoredParagraph2 extends React.Component<ColoredParagraphProps> {
 
 ```tsx
 class App extends Component {
-  render() {
+  public render() {
     return (
       <div className="App">
         <ColoredParagraph1 color="red">red</ColoredParagraph1>
@@ -144,7 +150,7 @@ export class Counter2 extends React.Component<CounterProps, CounterState> {
     // state を初期化する
     this.state = { count: 0 };
   }
-  render() {
+  public render() {
     const { count } = this.state;
     return (
       <div>
@@ -215,10 +221,37 @@ const Component: React.SFC = props => {
 
 ### 非同期で初期化する
 
-- Api サーバの mock を起動する
+- Api サーバの mock を起動する  
+  service.ts の getStep メソッドで非同期に step を取得できる
 
 ```sh
 npm run mock
+```
+
+- SFC で実装  
+  useEffect を使う
+
+```tsx
+// 初期化したい対象をstateとして扱う
+const [step, setStep] = React.useState<number | undefined>(undefined);
+// useEffect 内の関数は直接asyncできないので外で定義する
+const asyncFunc = async () => {
+  setStep(await getStep());
+};
+// trigger には空の配列を指定する
+React.useEffect(() => {
+  asyncFunc();
+}, []);
+```
+
+- class で実装
+
+```tsx
+// Lifecycleを使う
+public async componentDidMount() {
+  const step = await getStep();
+  this.setState({ step });
+}
 ```
 
 ### Form を作る

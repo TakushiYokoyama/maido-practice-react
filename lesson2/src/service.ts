@@ -1,4 +1,4 @@
-import { format, parse } from 'url';
+import { format } from 'url';
 import urljoin from 'url-join';
 
 export const getStep = async () => {
