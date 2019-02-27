@@ -9,6 +9,11 @@ npm init
 ## 目標
 
 - スタイルを適用できる
+  - style
+  - css
+  - sass
+  - css modules
+  - css in js
 
 ## Hands On
 
@@ -115,8 +120,161 @@ react は論理的に分割されているがテクノロジーで分割され�
 
 ```sh
 # @types/react-jssはなんか変だったので使わない
+# ./src/@types/react-jss/index.d.tsに定義済み
 npm i -S react-jss csstype theming @types/jss
 ```
 
 ```tsx
+// 型補完をいい感じにするための便利メソッド
+const createStyles = <TStyleKey extends string | number | symbol, TProps = {}>(
+  s: Styles<TStyleKey, TProps>,
+) => s;
+// css の内容を定義
+const styles = createStyles({
+  // ここにclass名を書く ※メディアクエリや疑似クラスも書ける
+  button5: {
+    color: 'red',
+  },
+});
+// SFCの場合
+const InnerButtonSFC: React.SFC<
+  ButtonProps & WithSheet<keyof typeof styles>
+> = props => {
+  // props.classes.button5 に class 名が生成されるのでclassNameに値を入れる
+  const { classes, ...others } = props;
+  const { button5 } = classes;
+  return <button {...others} className={button5} />;
+};
+// classの場合
+class InnerButtonClass extends React.Component<
+  ButtonProps & WithSheet<keyof typeof styles>
+> {
+  constructor(props: any) {
+    super(props);
+  }
+  public render() {
+    // this.props.classes.button5 に class 名が生成されるのでclassNameに値を入れる
+    const { classes, ...others } = this.props;
+    const { button5 } = classes;
+    return <button {...others} className={button5} />;
+  }
+}
+// injectSheet で紐付ける
+export const Button51 = injectSheet(styles)(InnerButtonSFC);
+export const Button52 = injectSheet(styles)(InnerButtonClass);
 ```
+
+#### テーマ注入
+
+```tsx
+// 型補完をいい感じにするための便利メソッド(テーマ注入用)
+const createStylesWithTheme = <
+  TStyleKey extends string | number | symbol,
+  TProps = {},
+  TTheme = {}
+>(
+  s: StyleCreator<TStyleKey, TTheme, TProps>,
+) => s;
+interface Theme {
+  color: ColorProperty;
+}
+// テーマを注入する function としてスタイルを定義する
+const stylesWithTheme = createStylesWithTheme((t: Theme) => ({
+  button5: {
+    color: t.color,
+  },
+}));
+// SFCの場合
+// ReturnType は戻り値の型を推論する組み込み型
+const InnerButtonSFCWithTheme: React.SFC<
+  ButtonProps & WithSheet<keyof ReturnType<typeof stylesWithTheme>, Theme>
+> = props => {
+  // theme は button に引き渡したくないため定義する
+  const { classes, theme: t, ...others } = props;
+  const { button5 } = classes;
+  return <button {...others} className={button5} />;
+};
+// classの場合
+class InnerButtonClassWithTheme extends React.Component<
+  ButtonProps & WithSheet<keyof ReturnType<typeof stylesWithTheme>, Theme>
+> {
+  constructor(props: any) {
+    super(props);
+  }
+  public render() {
+    const { classes, theme: t, ...others } = this.props;
+    const { button5 } = classes;
+    return <button {...others} className={button5} />;
+  }
+}
+const StyledButtonSFCWithTheme = injectSheet(stylesWithTheme)(
+  InnerButtonSFCWithTheme,
+);
+const StyledButtonClassWithTheme = injectSheet(stylesWithTheme)(
+  InnerButtonClassWithTheme,
+);
+// theme を定義
+const theme: Theme = { color: 'red' };
+// ThemeProviderにテーマを渡すとその子コンポーネントで injectSheetされたとき themeが注入される
+export const Button53: React.SFC<ButtonProps> = props => (
+  <ThemeProvider theme={theme}>
+    <StyledButtonSFCWithTheme {...props} />
+  </ThemeProvider>
+);
+export const Button54: React.SFC<ButtonProps> = props => (
+  <ThemeProvider theme={theme}>
+    <StyledButtonClassWithTheme {...props} />
+  </ThemeProvider>
+);
+```
+
+#### プロパティ注入
+
+```tsx
+// プロパティを定義
+interface Props {
+  color: ColorProperty;
+}
+// style を定義
+const stylesWithProps = createStyles({
+  // class毎に Propsを渡せるようになる
+  button5: (p: Props) => ({
+    color: p.color,
+  }),
+});
+const InnerButtonSFCWithProps: React.SFC<
+  Props & ButtonProps & WithSheet<keyof typeof stylesWithProps, {}, Props>
+> = props => {
+  const { classes, color, ...others } = props;
+  const { button5 } = classes;
+  return <button {...others} className={button5} />;
+};
+class InnerButtonClassWithProps extends React.Component<
+  Props & ButtonProps & WithSheet<keyof typeof stylesWithProps, {}, Props>
+> {
+  constructor(props: any) {
+    super(props);
+  }
+  public render() {
+    const { classes, color, ...others } = this.props;
+    const { button5 } = classes;
+    return <button {...others} className={button5} />;
+  }
+}
+const StyledButtonSFCWithProps = injectSheet(stylesWithProps)(
+  InnerButtonSFCWithProps,
+);
+const StyledButtonClassWithProps = injectSheet(stylesWithProps)(
+  InnerButtonClassWithProps,
+);
+export const Button55: React.SFC<ButtonProps> = props => (
+  <StyledButtonSFCWithProps color="red" {...props} />
+);
+export const Button56: React.SFC<ButtonProps> = props => (
+  <StyledButtonClassWithProps color="red" {...props} />
+);
+```
+
+### 各種法毎にボタンを押したら色を変えたい
+
+**Challenge!!**

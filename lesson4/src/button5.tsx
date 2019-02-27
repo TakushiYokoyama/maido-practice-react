@@ -56,7 +56,7 @@ const stylesWithTheme = createStylesWithTheme((t: Theme) => ({
 const InnerButtonSFCWithTheme: React.SFC<
   ButtonProps & WithSheet<keyof ReturnType<typeof stylesWithTheme>, Theme>
 > = props => {
-  const { classes, ...others } = props;
+  const { classes, theme: t, ...others } = props;
   const { button5 } = classes;
   return <button {...others} className={button5} />;
 };
@@ -67,7 +67,7 @@ class InnerButtonClassWithTheme extends React.Component<
     super(props);
   }
   public render() {
-    const { classes, ...others } = this.props;
+    const { classes, theme: t, ...others } = this.props;
     const { button5 } = classes;
     return <button {...others} className={button5} />;
   }
@@ -124,8 +124,8 @@ const StyledButtonClassWithProps = injectSheet(stylesWithProps)(
   InnerButtonClassWithProps,
 );
 export const Button55: React.SFC<ButtonProps> = props => (
-  <StyledButtonSFCWithProps {...props} color="red" />
+  <StyledButtonSFCWithProps color="red" {...props} />
 );
 export const Button56: React.SFC<ButtonProps> = props => (
-  <StyledButtonClassWithProps {...props} color="red" />
+  <StyledButtonClassWithProps color="red" {...props} />
 );

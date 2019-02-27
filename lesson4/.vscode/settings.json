@@ -28,7 +28,9 @@
     "Theming",
     "browserslist",
     "csstype",
+    "keyof",
     "middlewares",
+    "typeof",
     "urljoin"
   ]
 }
