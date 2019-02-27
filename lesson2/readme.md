@@ -32,7 +32,7 @@ A. Handler を props として渡して、state が変更されたときに Hand
 ### SFC, class Component, React Hooks
 
 - SFC
-  - Static Functional Component
+  - Stateless Functional Component
   - props を引数として レンダリングを行う純粋な関数
   - state を持たない
   - 軽量

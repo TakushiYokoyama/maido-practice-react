@@ -40,9 +40,7 @@ react で client side routing をするためのライブラリ。以下の 3 �
 ### インストール
 
 ```sh
-npm i -S react-router-dom query-string
-npm i -D @types/react-router-dom @types/query-string
-npm start
+npm i -S react-router-dom query-string @types/react-router-dom @types/query-string
 ```
 
 ### Router を有効にする範囲を定義するために BrowserRouter を実装する
