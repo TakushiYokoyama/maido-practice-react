@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  p {
+    margin: 0;
+  }
+  .btn {
+    border: white 2px solid;
+    border-radius: 10px;
+    width: 110px;
+    display: inline-flex;
+    justify-content: center;
+    font-size: inherit;
+    outline: none;
+    transition: 0.2s;
+    &button {
+      background: black;
+      color: white;
+      height: 40px;
+    }
+  }
+  .header {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    font-size: x-large;
+    display: flex;
+    > div {
+      flex-grow: 1;
+    }
+    > .left {
+      text-align: left;
+      justify-content: flex-start;
+    }
+    > .right {
+      text-align: right;
+      justify-content: flex-end;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    .btn {
+      color: white;
+      background: black;
+      &:hover {
+        background: white;
+        color: black;
+      }
+    }
+  }
+  .body {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+  }
+  .login-form {
+    font-size: 20px;
+    margin-top: 50px;
+    border: solid 8px #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    > div {
+      display: flex;
+      margin-bottom: 15px;
+      &:last-child {
+        margin-bottom: 0;
+        justify-content: flex-end;
+      }
+      label {
+        width: 120px;
+      }
+      input {
+        padding: 5px;
+        border: #ccc 2px solid;
+        border-radius: 5px;
+        outline: none;
+      }
+      .btn {
+        background: rgb(151, 150, 218);
+        color: white;
+        &:active {
+          background: rgb(114, 112, 216);
+        }
+        &:hover {
+          background: rgb(59, 56, 218);
+        }
+      }
+    }
+  }
+}

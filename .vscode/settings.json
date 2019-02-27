@@ -21,6 +21,8 @@
   ],
   "cSpell.words": [
     "Lifecycle",
+    "Undux",
+    "Vuex",
     "browserslist",
     "circleci",
     "inotify",

@@ -67,6 +67,7 @@ interface ColoredParagraphProps {
 
 ```tsx
 // React.SFCとして定義する。ジェネリック型なのでpropsの型を指定する
+// Componentは必ず *PascalCase* にする必要がある(でないとComponentとして認識されない)
 const ColoredParagraph1: React.SFC<ColoredParagraphProps> = props => {
   // 親Component の Inner HTML が格納される children というプロパティは自動的に付与される
   const { color, children } = props;

@@ -14,10 +14,6 @@
     "no-empty-interface": false
   },
   "linterOptions": {
-    "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js"
-    ]
+    "exclude": ["node_modules/**/*.ts"]
   }
 }

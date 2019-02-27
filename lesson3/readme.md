@@ -1,4 +1,4 @@
-# Lesson3 Routing
+# Lesson3 routing
 
 ## はじめに
 
