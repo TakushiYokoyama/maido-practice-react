@@ -9,7 +9,7 @@ const Login: React.SFC<{ onLogin: () => void }> = ({ onLogin }) => {
       </div>
       <div>
         <label htmlFor="password">パスワード</label>
-        <input id="password" />
+        <input id="password" type="password" />
       </div>
       <div>
         <button type="submit" className="btn">

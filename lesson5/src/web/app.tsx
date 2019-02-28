@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { AppHeader } from './app-header';
 import { AppBody } from './app-body';
+import './app.scss';
 
-const App: React.SFC = props => {
+export const App: React.SFC = props => {
   const [authenticated, setAuthenticated] = React.useState(false);
   return (
     <div>
@@ -17,5 +18,3 @@ const App: React.SFC = props => {
     </div>
   );
 };
-
-export default App;

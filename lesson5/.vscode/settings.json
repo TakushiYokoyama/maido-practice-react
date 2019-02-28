@@ -29,6 +29,7 @@
     "Vuex",
     "browserslist",
     "csstype",
+    "keyof",
     "middlewares",
     "urljoin"
   ]
