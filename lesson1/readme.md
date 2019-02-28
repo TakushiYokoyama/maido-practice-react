@@ -38,6 +38,12 @@ cd react-hands-on-lesson1
 npm start
 ```
 
+### tslint をインストール
+
+```sh
+npm i -D tslint tslint-config-prettier tslint-react
+```
+
 ### ビルド
 
 ```sh
