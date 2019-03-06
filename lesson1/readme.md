@@ -80,7 +80,7 @@ npx firebase deploy
 - テストを起動する
 
 ```sh
-react test
+npm test
 # System limit for number of file watchers reached が発生した場合下記を実行して再度実行
 # $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
 # $ sudo sysctl -p
@@ -120,7 +120,7 @@ it('renders without crashing', () => {
 npm scripts に以下の行を追記する
 
 ```
-"test-ci": "CI=true react-scripts-ts test --env=jsdom",
+"test-ci": "CI=true react-scripts test --env=jsdom",
 ```
 
 #### Firebase Token の入手
