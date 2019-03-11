@@ -14,12 +14,20 @@ npm init
 
 ## 解説
 
+### Component?
+
+コンポーネントとは、単独で成立するような構成要素のことを指す。  
+react では HTML タグ(div とか span とか input とか)と、ロジック、スタイルを組み合わせてコンポーネントを作ることができる。  
+作成したコンポーネントは他のコンポーネントから HTML タグのように呼び出すことができる。  
+コンポーネントは props と state を持つことができる。
+
 ### props? state?
 
 - props
   - Component の外側から渡ってくる値
   - 読み取り専用
   - public get only property
+  - HTML タグの属性のように使うことができる
 - state
   - Component 内部に保持する状態
   - 変更可能
@@ -51,7 +59,7 @@ A.基本 SFC で書く。hook を使っても無理な場合 class に書き換�
 
 ## Hands On
 
-### props の値によって表示色が変わる paragraph を作る
+### props の値によって表示色が変わる paragraph (p タグ) を作る
 
 - props の型を定義
 
