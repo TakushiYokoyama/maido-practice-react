@@ -2,7 +2,7 @@
 
 ## 目的
 
-- 来る Viewer の Front End の最適化に向けて、virtual DOM のライブラリである react を知る
+- 来る Front End の最適化に向けて、virtual DOM のライブラリである react を知る
 
 ## Lesson
 
