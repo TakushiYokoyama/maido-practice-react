@@ -173,7 +173,7 @@ export const Contact = withRouter<RouteComponentProps<Params>>(props => {
   // params を取得
   const { id } = match.params;
   // query-string を取得
-  const { state } = parse(location.search) as Query;
+  const { state } = parse(location.search ? location.search.substring(1) : '') as Query;
   return (
     <div>
       <p>contact</p>
