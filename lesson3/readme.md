@@ -3,7 +3,7 @@
 ## はじめに
 
 ```sh
-npm init
+npm install
 ```
 
 ## 目標
@@ -40,7 +40,7 @@ react で client side routing をするためのライブラリ。以下の 3 �
 ### インストール
 
 ```sh
-npm i -S react-router-dom query-string @types/react-router-dom @types/query-string
+npm i -S react-router-dom @types/react-router-dom
 ```
 
 ### Router を有効にする範囲を定義するために BrowserRouter を実装する
@@ -52,7 +52,7 @@ BrowserRouter コンポーネントの children 要素がルーターの有効�
 // app.tsx
 // BrowserRouter の直下にはコンポーネントを一つしか配置できないため、React.Fragmentを実装する
 // React.Fragmentは実際には何もレンダリングされない組み込みのコンポーネント
-const App: React.SFC = props => (
+const App: React.FunctionComponent = props => (
   <BrowserRouter>
     <React.Fragment>
       <AppHeader />
@@ -66,7 +66,7 @@ const App: React.SFC = props => (
 
 ```tsx
 // app-body.tsx
-export const AppBody: React.SFC = props => (
+export const AppBody: React.FunctionComponent = props => (
   <div className="body">
     <Route path="/contact" component={Contact} />
     <Route path="/about" component={About} />
@@ -86,7 +86,7 @@ export const AppBody: React.SFC = props => (
 - Switch を使う
 
 ```tsx
-export const AppBody: React.SFC = props => (
+export const AppBody: React.FunctionComponent = props => (
   <div className="body">
     <Switch>
       <Route path="/contact" component={Contact} />
@@ -163,8 +163,8 @@ interface Params {
   id: string;
 }
 // クエリストリング用のインターフェースを定義
-// OutputParamsを継承する必要がある(query-string の parse メソッドのindex.d.tsがいけてないため)
-interface Query extends OutputParams {
+// ParsedUrlQuery を継承する必要がある(querystring の parse メソッドのindex.d.tsがいけてないため)
+interface Query extends ParsedUrlQuery {
   state: string;
 }
 // withRouterを使う
@@ -173,7 +173,9 @@ export const Contact = withRouter<RouteComponentProps<Params>>(props => {
   // params を取得
   const { id } = match.params;
   // query-string を取得
-  const { state } = parse(location.search ? location.search.substring(1) : '') as Query;
+  const { state } = parse(
+    location.search ? location.search.substring(1) : '',
+  ) as Query;
   return (
     <div>
       <p>contact</p>

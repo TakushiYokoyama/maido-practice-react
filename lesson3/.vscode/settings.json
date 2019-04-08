@@ -27,6 +27,7 @@
     "browserslist",
     "csstype",
     "middlewares",
+    "querystring",
     "urljoin"
   ]
 }

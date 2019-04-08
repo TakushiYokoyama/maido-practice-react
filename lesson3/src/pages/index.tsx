@@ -1,2 +1,2 @@
 import * as React from 'react';
-export const Root: React.SFC = props => <div>home</div>;
+export const Root: React.FunctionComponent = props => <div>home</div>;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const AppHeader: React.SFC = props => {
+export const AppHeader: React.FunctionComponent = props => {
   const handleClick = () => (window.location.href = '/contact');
   return (
     <div className="header">
