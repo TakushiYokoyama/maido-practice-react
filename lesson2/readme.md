@@ -10,7 +10,7 @@ npm install
 
 - react で Component を作成できる
   - props,state を知る
-  - SFC,class Component,React Hooks で Component を作成できる
+  - FunctionComponent,class Component,React Hooks で Component を作成できる
 
 ## 解説
 
@@ -37,10 +37,9 @@ react では HTML タグ(div とか span とか input とか)と、ロジック�
 Q. Component の外側から state にアクセスできないなら、外側から state の変更をどうやって検知するのか?  
 A. Handler を props として渡して、state が変更されたときに Handler を実行する
 
-### SFC, class Component, React Hooks
+### FunctionComponent, class Component, React Hooks
 
-- SFC
-  - Stateless Functional Component
+- FunctionComponent
   - props を引数として レンダリングを行う純粋な関数
   - state を持たない
   - 軽量
@@ -51,11 +50,11 @@ A. Handler を props として渡して、state が変更されたときに Hand
   - Lifecycle フックを持つ
     - https://qiita.com/f-a24/items/40b83d4c6c7d147cda9e
 - React hooks
-  - SFC に classComponent 的な振る舞いを持たす記法
+  - FunctionComponent に classComponent 的な振る舞いを持たす記法
   - v16.8 から正式採用
 
 Q.書き分けどうするの?
-A.基本 SFC で書く。hook を使っても無理な場合 class に書き換える
+A.基本 FunctionComponent で書く。hook を使っても無理な場合 class に書き換える
 
 ## Hands On
 
@@ -71,12 +70,14 @@ interface ColoredParagraphProps {
 }
 ```
 
-- SFC で実装
+- FunctionComponent で実装
 
 ```tsx
-// React.SFCとして定義する。ジェネリック型なのでpropsの型を指定する
+// React.FunctionComponentとして定義する。ジェネリック型なのでpropsの型を指定する
 // Componentは必ず *PascalCase* にする必要がある(でないとComponentとして認識されない)
-const ColoredParagraph1: React.SFC<ColoredParagraphProps> = props => {
+const ColoredParagraph1: React.FunctionComponent<
+  ColoredParagraphProps
+> = props => {
   // 親Component の Inner HTML が格納される children というプロパティは自動的に付与される
   const { color, children } = props;
   // {}と書くと中にtypescriptを書ける
@@ -134,10 +135,10 @@ interface CounterState {
 }
 ```
 
-- SFC で実装
+- FunctionComponent で実装
 
 ```tsx
-export const Counter1: React.SFC<CounterProps> = props => {
+export const Counter1: React.FunctionComponent<CounterProps> = props => {
   // useStateで state とstateを変更するメソッド(setState)が生成される。名前は任意。
   const [state, setState] = React.useState<CounterState>({ count: 0 });
   const { count } = state;
@@ -187,7 +188,7 @@ tsx 内では{}内部に typescript 書け、その戻り値がそのまま表�
 - 表示の切り替え
 
 ```tsx
-const Component: React.SFC = props => {
+const Component: React.FunctionComponent = props => {
   const x = true;
   return (
     <div>
@@ -208,7 +209,7 @@ const Component: React.SFC = props => {
 - 繰り返し
 
 ```tsx
-const Component: React.SFC = props => {
+const Component: React.FunctionComponent = props => {
   const array = [0, 1, 2, 3, 4, 5];
   return (
     <div>
@@ -237,7 +238,7 @@ const Component: React.SFC = props => {
 npm run mock
 ```
 
-- SFC で実装  
+- FunctionComponent で実装  
   useEffect を使う
 
 ```tsx
