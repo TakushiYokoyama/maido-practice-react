@@ -3,7 +3,7 @@
 ## はじめに
 
 ```sh
-npm init
+npm install
 ```
 
 ## 目標
