@@ -124,11 +124,20 @@ react は論理的に分割されているがテクノロジーで分割され�
 npm i -S react-jss csstype theming @types/jss
 ```
 
-```tsx
+```ts
+// helper.ts
+import { Styles } from 'react-jss';
+
 // 型補完をいい感じにするための便利メソッド
-const createStyles = <TStyleKey extends string | number | symbol, TProps = {}>(
+export const createStyles = <
+  TStyleKey extends string | number | symbol,
+  TProps = {}
+>(
   s: Styles<TStyleKey, TProps>,
 ) => s;
+```
+
+```tsx
 // css の内容を定義
 const styles = createStyles({
   // ここにclass名を書く ※メディアクエリや疑似クラスも書ける
@@ -166,7 +175,8 @@ export const Button52 = injectSheet(styles)(InnerButtonClass);
 
 #### テーマ注入
 
-```tsx
+```ts
+// helper.ts
 // 型補完をいい感じにするための便利メソッド(テーマ注入用)
 const createStylesWithTheme = <
   TStyleKey extends string | number | symbol,
@@ -175,6 +185,9 @@ const createStylesWithTheme = <
 >(
   s: StyleCreator<TStyleKey, TTheme, TProps>,
 ) => s;
+```
+
+```tsx
 interface Theme {
   color: ColorProperty;
 }
