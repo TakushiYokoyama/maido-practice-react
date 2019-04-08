@@ -44,6 +44,22 @@ npm start
 npm i -D tslint tslint-config-prettier tslint-react
 ```
 
+```json
+// tslint.json
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rules": {},
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "dist/**/*",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  }
+}
+```
+
 ### ビルド
 
 ```sh
