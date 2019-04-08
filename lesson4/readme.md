@@ -24,7 +24,7 @@ react でスタイルを適用するには様々な方法がある。
 HTML の組み込みコンポーネントには props に style が存在するのでそこにオブジェクトを渡す
 
 ```tsx
-export const Button1: React.SFC<ButtonProps> = props => (
+export const Button1: React.FunctionComponent<ButtonProps> = props => (
   <button {...props} style={{ color: 'red' }} />
 );
 ```
@@ -45,7 +45,7 @@ css を書いて読み込む。読み込んだ css はグローバルなスコ�
 import './button2.css';
 
 // jsx では class は予約語なのでclassNameを使う
-export const Button2: React.SFC<ButtonProps> = props => (
+export const Button2: React.FunctionComponent<ButtonProps> = props => (
   <button {...props} className="button2" />
 );
 ```
@@ -71,7 +71,7 @@ npm i -S node-sass
 // 読み込む。読み込まれる場所ならばどこに書いても良い
 import './button3.scss';
 
-export const Button3: React.SFC<ButtonProps> = props => (
+export const Button3: React.FunctionComponent<ButtonProps> = props => (
   <button {...props} className="button3" />
 );
 ```
@@ -96,15 +96,15 @@ import styles from './button4.module.scss';
 const { button4 } = styles;
 
 // このコンポーネントにはスタイルが適用される
-export const Button41: React.SFC<ButtonProps> = props => (
+export const Button41: React.FunctionComponent<ButtonProps> = props => (
   <button {...props} className={button4} />
 );
 // Button41と同じクラスが適用される
-export const Button42: React.SFC<ButtonProps> = props => (
+export const Button42: React.FunctionComponent<ButtonProps> = props => (
   <button {...props} className={button4} />
 );
 // このコンポーネントにはスタイルが適用されない
-export const Button43: React.SFC<ButtonProps> = props => (
+export const Button43: React.FunctionComponent<ButtonProps> = props => (
   <button {...props} className="button4" />
 );
 ```
@@ -136,8 +136,8 @@ const styles = createStyles({
     color: 'red',
   },
 });
-// SFCの場合
-const InnerButtonSFC: React.SFC<
+// FunctionComponentの場合
+const InnerButtonFunctionComponent: React.FunctionComponent<
   ButtonProps & WithSheet<keyof typeof styles>
 > = props => {
   // props.classes.button5 に class 名が生成されるのでclassNameに値を入れる
@@ -160,7 +160,7 @@ class InnerButtonClass extends React.Component<
   }
 }
 // injectSheet で紐付ける
-export const Button51 = injectSheet(styles)(InnerButtonSFC);
+export const Button51 = injectSheet(styles)(InnerButtonFunctionComponent);
 export const Button52 = injectSheet(styles)(InnerButtonClass);
 ```
 
@@ -184,9 +184,9 @@ const stylesWithTheme = createStylesWithTheme((t: Theme) => ({
     color: t.color,
   },
 }));
-// SFCの場合
+// FunctionComponentの場合
 // ReturnType は戻り値の型を推論する組み込み型
-const InnerButtonSFCWithTheme: React.SFC<
+const InnerButtonFunctionComponentWithTheme: React.FunctionComponent<
   ButtonProps & WithSheet<keyof ReturnType<typeof stylesWithTheme>, Theme>
 > = props => {
   // theme は button に引き渡したくないため定義する
@@ -207,8 +207,8 @@ class InnerButtonClassWithTheme extends React.Component<
     return <button {...others} className={button5} />;
   }
 }
-const StyledButtonSFCWithTheme = injectSheet(stylesWithTheme)(
-  InnerButtonSFCWithTheme,
+const StyledButtonFunctionComponentWithTheme = injectSheet(stylesWithTheme)(
+  InnerButtonFunctionComponentWithTheme,
 );
 const StyledButtonClassWithTheme = injectSheet(stylesWithTheme)(
   InnerButtonClassWithTheme,
@@ -216,12 +216,12 @@ const StyledButtonClassWithTheme = injectSheet(stylesWithTheme)(
 // theme を定義
 const theme: Theme = { color: 'red' };
 // ThemeProviderにテーマを渡すとその子コンポーネントで injectSheetされたとき themeが注入される
-export const Button53: React.SFC<ButtonProps> = props => (
+export const Button53: React.FunctionComponent<ButtonProps> = props => (
   <ThemeProvider theme={theme}>
-    <StyledButtonSFCWithTheme {...props} />
+    <StyledButtonFunctionComponentWithTheme {...props} />
   </ThemeProvider>
 );
-export const Button54: React.SFC<ButtonProps> = props => (
+export const Button54: React.FunctionComponent<ButtonProps> = props => (
   <ThemeProvider theme={theme}>
     <StyledButtonClassWithTheme {...props} />
   </ThemeProvider>
@@ -242,7 +242,7 @@ const stylesWithProps = createStyles({
     color: p.color,
   }),
 });
-const InnerButtonSFCWithProps: React.SFC<
+const InnerButtonFunctionComponentWithProps: React.FunctionComponent<
   Props & ButtonProps & WithSheet<keyof typeof stylesWithProps, {}, Props>
 > = props => {
   const { classes, color, ...others } = props;
@@ -261,16 +261,16 @@ class InnerButtonClassWithProps extends React.Component<
     return <button {...others} className={button5} />;
   }
 }
-const StyledButtonSFCWithProps = injectSheet(stylesWithProps)(
-  InnerButtonSFCWithProps,
+const StyledButtonFunctionComponentWithProps = injectSheet(stylesWithProps)(
+  InnerButtonFunctionComponentWithProps,
 );
 const StyledButtonClassWithProps = injectSheet(stylesWithProps)(
   InnerButtonClassWithProps,
 );
-export const Button55: React.SFC<ButtonProps> = props => (
-  <StyledButtonSFCWithProps color="red" {...props} />
+export const Button55: React.FunctionComponent<ButtonProps> = props => (
+  <StyledButtonFunctionComponentWithProps color="red" {...props} />
 );
-export const Button56: React.SFC<ButtonProps> = props => (
+export const Button56: React.FunctionComponent<ButtonProps> = props => (
   <StyledButtonClassWithProps color="red" {...props} />
 );
 ```
