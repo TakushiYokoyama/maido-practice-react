@@ -3,7 +3,8 @@
 ## はじめに
 
 ```sh
-npm init
+npm install
+npm start
 ```
 
 ## 目標
@@ -30,8 +31,7 @@ Flux は facebook が提唱する FRP でデータストアを扱うためのア
 
 - 各 Component 間でのデータ共有がしやすい  
   Component 間の state のバケツリレーを減らせる
-- Component をステートレスに実装できる  
-  責務分離できる
+- 責務分離できる
 - データフローが一方通行になるので見通しが良くなる
 - ロジックの種類によって定義する場所、命名が決まってくる
 - プラグインによって AOP 的な実装ができる
@@ -79,7 +79,7 @@ npm i -S react-redux @types/react-redux typescript-fsa typescript-fsa-reducers
 管理したい値の型を定義する
 
 ```ts
-// ./src/stores/account/state.ts
+// ./src/stores/accounts/state.ts
 export interface AccountState {
   authenticated: boolean;
 }
@@ -91,7 +91,7 @@ export default AccountState;
 action は state を変更するための名前(何をするか)と payload(値)の組み合わせのパターン
 
 ```ts
-// ./src/stores/account/actions.ts
+// ./src/stores/accounts/actions.ts
 export interface Actions {
   // ここで定義する型がpayloadの型となる。ここでは空のオブジェクトとして定義しておく
   login: {};
@@ -106,7 +106,7 @@ action を生成するオブジェクトを定義する。
 ビュー側では action-creator で作った action を dispatch(送信) することで state を変更する。
 
 ```ts
-// ./src/stores/account/index.ts
+// ./src/stores/accounts/index.ts
 import { actionCreatorFactory, ActionCreator } from 'typescript-fsa';
 import Actions from './actions';
 
@@ -129,7 +129,7 @@ export const accountActionCreators: AccountActionCreators = {
 action を受け取ったときに state を変更するロジックを定義する
 
 ```ts
-// ./src/stores/account/functions.ts
+// ./src/stores/accounts/functions.ts
 import State from './state';
 import Actions from './actions';
 
@@ -155,7 +155,7 @@ reducer は action と state, function をつなぎ合わせるオブジェク�
 action に対してどの function を発火させるか、どの state を更新させるかを定義する
 
 ```ts
-// ./src/stores/account/index.ts
+// ./src/stores/accounts/index.ts
 export const accountsReducerBuilder = (state: State) =>
   reducerWithInitialState(state)
     .case(accountsActionCreators.login, functions.login)
